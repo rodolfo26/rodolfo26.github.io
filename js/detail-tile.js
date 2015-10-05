@@ -2243,7 +2243,7 @@ $.extend(true, lv, {
         setupCanvases();
         setData(data_);
         setupGrid();
-        //draw();
+        draw();
         bindEvents();
 
 
@@ -2942,7 +2942,7 @@ $.extend(true, lv, {
             if (h == null)
                 h = 0;
 
-            axis.labelWidth = w;
+            axis.labelWidth = w - 20;
             axis.labelHeight = h;
         }
 
