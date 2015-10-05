@@ -1330,6 +1330,11 @@ var isOnHistoryDetailPage = $("#isOnHistoryDetailPage").val();
 var $chart;
 var lvContextRoot = $("#globalContextRoot").val();
 function showChart(url, id, startDate, endDate, useImperial) {
+    console.log("url: "+ url)
+    console.log("id: "+ id)
+    console.log("startDate: "+ startDate)
+    console.log("endDate: "+ endDate)
+    console.log("useImperial: "+ useImperial)
     if (typeof url != 'undefined' && undefined != url) {
         $.get(url, {challengeIdentifier: id, startDate: startDate, endDate: endDate}, function (chartDataJSON) {
             var chartData = $.parseJSON(chartDataJSON),
