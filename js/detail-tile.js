@@ -2877,6 +2877,7 @@ $.extend(true, lv, {
         }
 
         function measureTickLabels(axis) {
+            console.log("AAAAAAAAAAAAAAAAAA")
             var opts = axis.options, i, ticks = axis.ticks || [], labels = [],
                 l, w = opts.labelWidth, h = opts.labelHeight, dummyDiv;
 
@@ -2901,6 +2902,8 @@ $.extend(true, lv, {
                     for (i = 0; i < ticks.length; ++i) {
                         l = ticks[i].label;
                         if (l)
+
+            console.log("BBBBBBBBBBB" + i)
                             labels.push('<div class="tickLabel" style="float:left;width:' + w + 'px"> <h4>' + l + '</h4> </div>');
                     }
 
@@ -2919,6 +2922,7 @@ $.extend(true, lv, {
                 for (i = 0; i < ticks.length; ++i) {
                     l = ticks[i].label;
                     if (l)
+            console.log("CCCCCCCCCCCCCCC" + i)
                         labels.push('<div class="tickLabel"><h4>' + l + '</h4></div>');
                 }
 
@@ -2927,6 +2931,7 @@ $.extend(true, lv, {
                     if (w == null)
                         w = dummyDiv.children().width();
                     if (h == null)
+            console.log("DDDDDDDDDDDD")
                         h = dummyDiv.find("div.tickLabel").height();
                     dummyDiv.remove();
                 }
@@ -3048,6 +3053,7 @@ $.extend(true, lv, {
                     snapRangeToTicks(axis, axis.ticks);
 
                     // find labelWidth/Height for axis
+            console.log("EEEEEEEEEEEEE")
                     measureTickLabels(axis);
                 });
 
@@ -3684,8 +3690,10 @@ $.extend(true, lv, {
         }
 
         function insertAxisLabels() {
+            console.log("FFFFFFFFFFFFFFF")
             placeholder.find(".tickLabels").remove();
 
+            console.log("GGGGGGGGGGGGG")
             var html = ['<div class="tickLabels" style="font-size:smaller">'];
 
             var axes = allAxes();
@@ -3728,6 +3736,7 @@ $.extend(true, lv, {
                     for (var a in pos)
                         style.push(a + ":" + pos[a] + "px")
 
+            console.log("HHHHHHHHHHHHH" +a)
                     html.push('<div class="tickLabel" style="' + style.join(';') + '"><h4>' + tick.label + '</h4></div>');
                 }
                 html.push('</div>');
