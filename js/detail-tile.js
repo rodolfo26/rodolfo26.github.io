@@ -1366,6 +1366,10 @@ function showChart(url, id, startDate, endDate, useImperial) {
 function adjustDataPointsTime(points) {
     var adjusted = [];
     $.each( points, function( key, point ) {
+        var midDayTime = getMidDayTime(point.dateTime);
+        var pointValue = point.value;
+        console.log(getMidDayTime(point.dateTime))
+        console.log(pointValue)
         adjusted.push({dateTime :getMidDayTime(point.dateTime), value: point.value});
     });
     return adjusted;
