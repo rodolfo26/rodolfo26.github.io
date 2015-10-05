@@ -2243,7 +2243,7 @@ $.extend(true, lv, {
         setupCanvases();
         setData(data_);
         setupGrid();
-        draw();
+        //draw();
         bindEvents();
 
 
