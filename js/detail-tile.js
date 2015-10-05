@@ -1927,6 +1927,7 @@ $.extend(true, lv, {
                 this.setDateRange($chart.data("viewMode", this.VIEW_MODE.WEEK));
             },
             switchToMonthView:function () {
+                console.log("testing lng...")
                 this.setDateRange($chart.data("viewMode", this.VIEW_MODE.MONTH));
             },
             switchToYearView:function () {
