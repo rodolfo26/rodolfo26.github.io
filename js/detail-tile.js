@@ -2242,8 +2242,8 @@ $.extend(true, lv, {
         parseOptions(options_);
         setupCanvases();
         setData(data_);
-        //setupGrid();
-        draw();
+        setupGrid();
+        //draw();
         bindEvents();
 
 
