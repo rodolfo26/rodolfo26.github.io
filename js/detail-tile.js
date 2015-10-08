@@ -3713,7 +3713,8 @@ $.extend(true, lv, {
 
                     if (axis.direction == "x") {
                         align = "center";
-                        pos.left = Math.round(plotOffset.left + axis.p2c(tick.v) - axis.labelWidth/2);
+                        var test = axis.p2c(tick.v);
+                        pos.left = Math.round(plotOffset.left + test - axis.labelWidth/2);
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
                         else
