@@ -13526,6 +13526,7 @@ function configureUrls() {
     console.log("urlToShare: "+urlToShare);
     console.log("qualifyURL(urlToShare)): "+qualifyURL(urlToShare)));
     $(".pin-it-button").attr("href", "http://pinterest.com/pin/create/button/?url=" + qualifyURL(urlToShare) + "&media=" + qualifyImageURL(imageUrl) + "&description=" + $("#smDescription").text());
+
     $("#googlePlusImage").attr("src",
         qualifyImageURL(imageUrl));
     "true" !== $("#useDirectLinkedIn").val() ? $("#linkedInLink").attr("data-url", qualifyURL(urlToShare)) : $("#linkedInLink").attr("href", prepareLinkedInPost(urlToShare))

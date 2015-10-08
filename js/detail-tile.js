@@ -3456,7 +3456,7 @@ $.extend(true, lv, {
 
             // draw background, if any
             if (grid.show && grid.backgroundColor)
-//                drawBackground();//EDITEDKO
+                drawBackground();
 
             if (grid.show && !grid.aboveData)
                 drawGrid();
