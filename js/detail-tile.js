@@ -3094,6 +3094,7 @@ $.extend(true, lv, {
             }
 
             insertLegend();
+            console.log("Done setup grid")
         }
 
         function setRange(axis) {
