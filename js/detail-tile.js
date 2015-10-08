@@ -3714,7 +3714,9 @@ $.extend(true, lv, {
                     if (axis.direction == "x") {
                         align = "center";
                         var test = axis.p2c(tick.v);
-                        pos.left = Math.round(plotOffset.left + test - axis.labelWidth/2 -20);
+                        var mid = axis.ticks.length / 2 + ( axis.ticks.length % 2 = 0 ? 1 : 0);
+                        var adjustment = ( mid - i ) * 20;
+                        pos.left = Math.round(plotOffset.left + test - axis.labelWidth/2 + adjustment);
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
                         else
