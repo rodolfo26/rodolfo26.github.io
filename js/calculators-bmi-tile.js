@@ -13523,6 +13523,8 @@ function configureUrls() {
     $("#twitterLink").attr("data-url", qualifyURL(a));
     $("#twitterLink").attr("data-text", $("#smDescription").text());
     $(".g-plus").attr("href", "https://plus.google.com/share?url=" + qualifyURL(urlToShare));
+    console.log("urlToShare: "+urlToShare);
+    console.log("qualifyURL(urlToShare)): "+qualifyURL(urlToShare)));
     $(".pin-it-button").attr("href", "http://pinterest.com/pin/create/button/?url=" + qualifyURL(urlToShare) + "&media=" + qualifyImageURL(imageUrl) + "&description=" + $("#smDescription").text());
     $("#googlePlusImage").attr("src",
         qualifyImageURL(imageUrl));
