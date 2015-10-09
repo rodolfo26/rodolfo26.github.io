@@ -3778,9 +3778,9 @@ $.extend(true, lv, {
             if($chart.data("viewMode") == 1){
                 var mid = ( range ) / 2 ;
                 var tempMilliseconds = millisecond - min ;
-                adjustment = ( mid - tempMilliseconds ) * pixelFactor / millisPerPixel;
+                adjustment = ( mid - tempMilliseconds ) * 0.154479;
             }else if($chart.data("viewMode") == 2){
-                adjustment = pixelFactor / millisPerPixel ;
+                adjustment = pixelFactor * millisPerPixel ;
             }
             return millisecond + adjustment;
         }
