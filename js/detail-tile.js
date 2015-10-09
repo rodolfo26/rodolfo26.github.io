@@ -2340,6 +2340,7 @@ $.extend(true, lv, {
                     }
                 }
             }
+            
             for (var i = 0; i < d.length; ++i) {
                 var s = $.extend(true, {}, options.series);
 
