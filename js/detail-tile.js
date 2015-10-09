@@ -2234,6 +2234,8 @@ $.extend(true, lv, {
         setData(data_);
         setupGrid();
         draw();
+        console.log("options.xaxis.min: "+ options.xaxis.min)
+        console.log("options.xaxis.max: "+ options.xaxis.max)
         bindEvents();
 
 
