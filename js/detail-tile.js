@@ -3720,8 +3720,8 @@ $.extend(true, lv, {
 
                     if (axis.direction == "x") {
                         align = "center";
-                        v = getAdjustedMilliseconds(tick.v);
-                        pos.left = Math.round(plotOffset.left + axis.p2c(v) - axis.labelWidth/2);
+                        $v = getAdjustedMilliseconds(tick.v);
+                        pos.left = Math.round(plotOffset.left + axis.p2c($v) - axis.labelWidth/2);
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
                         else
@@ -3777,9 +3777,9 @@ $.extend(true, lv, {
             if($chart.data("viewMode") == 1){
                 var mid = ( range ) / 2 ;
                 var tempMilliseconds = millisecond - min ;
-                adjustment = ( mid - tempMilliseconds ) * 22 * millisPerPixel;
+                adjustment = ( mid - tempMilliseconds ) * 22 ;
             }else if($chart.data("viewMode") == 2){
-                adjustment = 22 * millisPerPixel;
+                adjustment = 22 * millisPerPixel ;
             }
             return millisecond + adjustment;
         }
