@@ -3774,12 +3774,13 @@ $.extend(true, lv, {
             var max = options.xaxis.max;
             var range = max - min ;
             var millisPerPixel = range / 590; // the width of chart is 590px
+            var pixelFactor = 22 ;
             if($chart.data("viewMode") == 1){
                 var mid = ( range ) / 2 ;
                 var tempMilliseconds = millisecond - min ;
-                adjustment = ( mid - tempMilliseconds ) * 22 ;
+                adjustment = ( mid - tempMilliseconds ) * pixelFactor / millisPerPixel;
             }else if($chart.data("viewMode") == 2){
-                adjustment = 22 * millisPerPixel ;
+                adjustment = pixelFactor / millisPerPixel ;
             }
             return millisecond + adjustment;
         }
