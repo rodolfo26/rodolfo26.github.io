@@ -3731,11 +3731,7 @@ $.extend(true, lv, {
                     if (axis.direction == "x") {
                         align = "center";
                         var test = axis.p2c(tick.v);
-                        var mid = axis.ticks.length / 2 + 0.5;
-                        console.log("CHART VIEW: " + $chart.data("viewMode"))
-                        console.log("CHART VIEW is month: " + $chart.data("viewMode") == this.VIEW_MODE.MONTH)
-                        var adjustment = ( mid - i - 1 ) * $('#testVal').val() ;
-                        pos.left = Math.round(plotOffset.left + test - axis.labelWidth/2 + adjustment);
+                        pos.left = Math.round(getAdjustedX(plotOffset.left + test - axis.labelWidth/2, axis.ticks.length);
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
                         else
@@ -3768,6 +3764,19 @@ $.extend(true, lv, {
             html.push('</div>');
 
             placeholder.append(html.join(""));
+        }
+
+        function getAdjustedX(xVal, ticksCount){
+            console.log("CHART VIEW: " + $chart.data("viewMode"));// 0: week, 1: month, 2: year
+            var adjustment = 0;
+            if($chart.data("viewMode") == 1){
+                var mid = axis.ticks.length / 2 + 0.5;
+                adjustment = ( mid - i - 1 ) * $('#testVal').val() ;
+
+            }else if($chart.data("viewMode") == 2){
+                adjustment = 20 ;
+            }
+            return xVal + adjustment;
         }
 
         function drawSeries(series) {
