@@ -3657,9 +3657,7 @@ $.extend(true, lv, {
                     }
 
                     if (axis.direction == "x"){
-                        var mid = axis.ticks.length / 2 + 0.5;
-                        var adjustment = ( mid - i - 1 ) * $('#testVal').val() ;
-                        x += adjustment;
+                        x = getAdjustedX(x, axis.ticks.length, i);
                     }
 
                     var testVar = {};
@@ -3707,8 +3705,7 @@ $.extend(true, lv, {
 
                     if (axis.direction == "x") {
                         align = "center";
-                        var test = axis.p2c(tick.v);
-                        pos.left = Math.round(getAdjustedX(plotOffset.left + test - axis.labelWidth/2, axis.ticks.length, i));
+                        pos.left = Math.round(getAdjustedX(plotOffset.left + axis.p2c(tick.v) - axis.labelWidth/2, axis.ticks.length, i));
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
                         else
