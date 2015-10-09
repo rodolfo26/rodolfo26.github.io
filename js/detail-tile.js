@@ -3631,9 +3631,14 @@ $.extend(true, lv, {
                         x = Math.floor(x) + 0.5;
                         y = Math.floor(y) + 0.5;
                     }
+                    var testVar = {};
+                    testVar.x = x;
+                    testVar.y = y;
+                    testVar.xoff = xoff;
+                    testVar.yoff = yoff;
 
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(x + xoff, y + yoff);
+                    ctx.moveTo(testVar.x, testVar.y);
+                    ctx.lineTo(testVar.x + testVar.xoff, testVar.y + testVar.yoff);
                     ctx.stroke();
                 }
 
@@ -3715,7 +3720,7 @@ $.extend(true, lv, {
                         align = "center";
                         var test = axis.p2c(tick.v);
                         var mid = axis.ticks.length / 2 + 0.5;
-                        var adjustment = ( mid - i - 1 ) * $('#testVal').val();
+                        var adjustment = ( mid - i - 1 ) * $('#testVal').val() != ;
                         pos.left = Math.round(plotOffset.left + test - axis.labelWidth/2 + adjustment);
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
