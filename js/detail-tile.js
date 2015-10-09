@@ -2329,19 +2329,14 @@ $.extend(true, lv, {
 
         function parseData(d) {
             var res = [];
-            var tickCount = 0;
-            var axes = allAxes();
-            for (var j = 0; j < axes.length; ++j) {
-                var axis = axes[j];
-//                for (var i = 0; i < axis.ticks.length; ++i) {
-//                   if (axis.direction == "x") {
-//                       tickCount = axis.ticks.length;
-//                       break;
-//                   }
-//               }
-            }
 
             for (var i = 0; i < d.length; ++i) {
+                for(var j = 0; j < d[i].data.length; j++){
+                    var originalMillis = d[i].data[j][0];
+                    var manipulatedMillis = getAdjustedMilliseconds(originalMillis);
+                    d[i].data[j][0] = manipulatedMillis;
+                }
+
                 var s = $.extend(true, {}, options.series);
 
                 if (d[i].data != null) {
