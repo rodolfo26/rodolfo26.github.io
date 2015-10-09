@@ -2330,7 +2330,9 @@ $.extend(true, lv, {
         function parseData(d) {
             var res = [];
             var tickCount = 0;
+            var axes = allAxes();
             for (var j = 0; j < axes.length; ++j) {
+                var axis = axes[j];
                 for (var i = 0; i < axis.ticks.length; ++i) {
                     if (axis.direction == "x") {
                         tickCount = axis.ticks.length;
