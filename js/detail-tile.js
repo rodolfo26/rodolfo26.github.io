@@ -3748,7 +3748,7 @@ $.extend(true, lv, {
             }else if($chart.data("viewMode") == 2){
                 adjustment = parseInt($('#testVal').val()) ;
             }
-            return xVal + adjustment;
+            return adjustment + xVal;
         }
 
         function drawSeries(series) {
