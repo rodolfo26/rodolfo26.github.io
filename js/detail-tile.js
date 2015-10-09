@@ -3766,12 +3766,12 @@ $.extend(true, lv, {
             placeholder.append(html.join(""));
         }
 
-        function getAdjustedX(xVal, ticksCount){
+        function getAdjustedX(xVal, ticksCount, index){
             console.log("CHART VIEW: " + $chart.data("viewMode"));// 0: week, 1: month, 2: year
             var adjustment = 0;
             if($chart.data("viewMode") == 1){
                 var mid = ticksCount / 2 + 0.5;
-                adjustment = ( mid - i - 1 ) * $('#testVal').val() ;
+                adjustment = ( mid - index - 1 ) * $('#testVal').val() ;
             }else if($chart.data("viewMode") == 2){
                 adjustment = 20 ;
             }
