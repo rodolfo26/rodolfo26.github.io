@@ -3677,8 +3677,14 @@ $.extend(true, lv, {
                             y = Math.floor(y) + 0.5;
                     }
 
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(x + xoff, y + yoff);
+                    var testVar = {};
+                    testVar.x = x;
+                    testVar.y = y;
+                    testVar.xoff = xoff;
+                    testVar.yoff = yoff;
+
+                    ctx.moveTo(testVar.x, testVar.y);
+                    ctx.lineTo(testVar.x + testVar.xoff, testVar.y + testVar.yoff);
                 }
 
                 ctx.stroke();
