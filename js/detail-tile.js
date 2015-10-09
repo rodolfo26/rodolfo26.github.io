@@ -1330,11 +1330,6 @@ var isOnHistoryDetailPage = $("#isOnHistoryDetailPage").val();
 var $chart;
 var lvContextRoot = $("#globalContextRoot").val();
 function showChart(url, id, startDate, endDate, useImperial) {
-    console.log("url: "+ url)
-    console.log("id: "+ id)
-    console.log("startDate: "+ startDate)
-    console.log("endDate: "+ endDate)
-    console.log("useImperial: "+ useImperial)
     if (typeof url != 'undefined' && undefined != url) {
         $.get(url, {challengeIdentifier: id, startDate: startDate, endDate: endDate}, function (chartDataJSON) {
             var chartData = $.parseJSON(chartDataJSON),
@@ -1371,10 +1366,6 @@ function showChart(url, id, startDate, endDate, useImperial) {
 function adjustDataPointsTime(points) {
     var adjusted = [];
     $.each( points, function( key, point ) {
-        var midDayTime = getMidDayTime(point.dateTime);
-        var pointValue = point.value;
-        console.log(getMidDayTime(point.dateTime))
-        console.log(pointValue)
         adjusted.push({dateTime :getMidDayTime(point.dateTime), value: point.value});
     });
     return adjusted;
@@ -1936,7 +1927,6 @@ $.extend(true, lv, {
                 this.setDateRange($chart.data("viewMode", this.VIEW_MODE.WEEK));
             },
             switchToMonthView:function () {
-                console.log("testing lng...")
                 this.setDateRange($chart.data("viewMode", this.VIEW_MODE.MONTH));
             },
             switchToYearView:function () {
@@ -2877,7 +2867,6 @@ $.extend(true, lv, {
         }
 
         function measureTickLabels(axis) {
-            console.log("AAAAAAAAAAAAAAAAAA")
             var opts = axis.options, i, ticks = axis.ticks || [], labels = [],
                 l, w = opts.labelWidth, h = opts.labelHeight, dummyDiv;
 
@@ -2902,8 +2891,6 @@ $.extend(true, lv, {
                     for (i = 0; i < ticks.length; ++i) {
                         l = ticks[i].label;
                         if (l)
-
-            console.log("BBBBBBBBBBB" + i)
                             labels.push('<div class="tickLabel" style="float:left;width:' + w + 'px"> <h4>' + l + '</h4> </div>');
                     }
 
@@ -2922,7 +2909,6 @@ $.extend(true, lv, {
                 for (i = 0; i < ticks.length; ++i) {
                     l = ticks[i].label;
                     if (l)
-            console.log("CCCCCCCCCCCCCCC" + i)
                         labels.push('<div class="tickLabel"><h4>' + l + '</h4></div>');
                 }
 
@@ -2931,7 +2917,6 @@ $.extend(true, lv, {
                     if (w == null)
                         w = dummyDiv.children().width();
                     if (h == null)
-            console.log("DDDDDDDDDDDD")
                         h = dummyDiv.find("div.tickLabel").height();
                     dummyDiv.remove();
                 }
@@ -2942,7 +2927,7 @@ $.extend(true, lv, {
             if (h == null)
                 h = 0;
 
-            axis.labelWidth = w - 20;
+            axis.labelWidth = w;
             axis.labelHeight = h;
         }
 
@@ -3053,7 +3038,6 @@ $.extend(true, lv, {
                     snapRangeToTicks(axis, axis.ticks);
 
                     // find labelWidth/Height for axis
-            console.log("EEEEEEEEEEEEE")
                     measureTickLabels(axis);
                 });
 
@@ -3631,14 +3615,9 @@ $.extend(true, lv, {
                         x = Math.floor(x) + 0.5;
                         y = Math.floor(y) + 0.5;
                     }
-                    var testVar = {};
-                    testVar.x = x;
-                    testVar.y = y;
-                    testVar.xoff = xoff;
-                    testVar.yoff = yoff;
 
-                    ctx.moveTo(testVar.x, testVar.y);
-                    ctx.lineTo(testVar.x + testVar.xoff, testVar.y + testVar.yoff);
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + xoff, y + yoff);
                     ctx.stroke();
                 }
 
@@ -3708,10 +3687,8 @@ $.extend(true, lv, {
         }
 
         function insertAxisLabels() {
-            console.log("FFFFFFFFFFFFFFF")
             placeholder.find(".tickLabels").remove();
 
-            console.log("GGGGGGGGGGGGG")
             var html = ['<div class="tickLabels" style="font-size:smaller">'];
 
             var axes = allAxes();
@@ -3755,7 +3732,6 @@ $.extend(true, lv, {
                     for (var a in pos)
                         style.push(a + ":" + pos[a] + "px")
 
-            console.log("HHHHHHHHHHHHH" +a)
                     html.push('<div class="tickLabel" style="' + style.join(';') + '"><h4>' + tick.label + '</h4></div>');
                 }
                 html.push('</div>');
