@@ -2329,6 +2329,15 @@ $.extend(true, lv, {
 
         function parseData(d) {
             var res = [];
+            var tickCount = 0;
+            for (var j = 0; j < axes.length; ++j) {
+                for (var i = 0; i < axis.ticks.length; ++i) {
+                    if (axis.direction == "x") {
+                        tickCount = axis.ticks.length;
+                        break;
+                    }
+                }
+            }
             for (var i = 0; i < d.length; ++i) {
                 var s = $.extend(true, {}, options.series);
 
