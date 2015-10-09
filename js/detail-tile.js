@@ -3649,6 +3649,7 @@ $.extend(true, lv, {
                         continue;
 
                     if (axis.direction == "x") {
+                        v = getAdjustedMilliseconds(v);
                         x = axis.p2c(v);
                         yoff = t == "full" ? -plotHeight : t;
 
@@ -3670,9 +3671,9 @@ $.extend(true, lv, {
                             y = Math.floor(y) + 0.5;
                     }
 
-                    if (axis.direction == "x"){
-                        x = getAdjustedX(x, axis.ticks.length, i);
-                    }
+//                    if (axis.direction == "x"){
+//                        x = getAdjustedX(x, axis.ticks.length, i);
+//                    }
 
                     var testVar = {};
                     testVar.x = x;
@@ -3719,7 +3720,8 @@ $.extend(true, lv, {
 
                     if (axis.direction == "x") {
                         align = "center";
-                        pos.left = Math.round(getAdjustedX(plotOffset.left + axis.p2c(tick.v) - axis.labelWidth/2, axis.ticks.length, i));
+                        v = getAdjustedMilliseconds(tick.v);
+                        pos.left = Math.round(plotOffset.left + axis.p2c(v) - axis.labelWidth/2);
                         if (axis.position == "bottom")
                             pos.top = box.top + box.padding;
                         else
@@ -3763,6 +3765,23 @@ $.extend(true, lv, {
                 adjustment = 22 ;
             }
             return adjustment + xVal;
+        }
+
+        function getAdjustedMilliseconds(millisecond){
+            console.log("CHART VIEW: " + $chart.data("viewMode"));// 0: week, 1: month, 2: year
+            var adjustment = 0;
+            var min = options.xaxis.min;
+            var max = options.xaxis.max;
+            var range = max - min ;
+            var millisPerPixel = range / 590; // the width of chart is 590px
+            if($chart.data("viewMode") == 1){
+                var mid = ( range ) / 2 ;
+                var tempMilliseconds = millisecond - min ;
+                adjustment = ( mid - tempMilliseconds ) * 22 * millisPerPixel;
+            }else if($chart.data("viewMode") == 2){
+                adjustment = 22 * millisPerPixel;
+            }
+            return millisecond + adjustment;
         }
 
         function drawSeries(series) {
