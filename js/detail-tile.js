@@ -2231,8 +2231,8 @@ $.extend(true, lv, {
         initPlugins(plot);
         parseOptions(options_);
         setupCanvases();
-        setData(data_);
         setupGrid();
+        setData(data_);
         draw();
         console.log("options.xaxis.min: "+ options.xaxis.min)
         console.log("options.xaxis.max: "+ options.xaxis.max)
@@ -2333,12 +2333,12 @@ $.extend(true, lv, {
             var axes = allAxes();
             for (var j = 0; j < axes.length; ++j) {
                 var axis = axes[j];
-//                for (var i = 0; i < axis.ticks.length; ++i) {
-                   //                    if (axis.direction == "x") {
-                   //                        tickCount = axis.ticks.length;
-                   //                        break;
-                   //                    }
-                   //                }
+                for (var i = 0; i < axis.ticks.length; ++i) {
+                   if (axis.direction == "x") {
+                       tickCount = axis.ticks.length;
+                       break;
+                   }
+               }
             }
 
             for (var i = 0; i < d.length; ++i) {
