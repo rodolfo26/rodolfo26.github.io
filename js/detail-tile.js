@@ -3744,9 +3744,9 @@ $.extend(true, lv, {
             var adjustment = 0;
             if($chart.data("viewMode") == 1){
                 var mid = ticksCount / 2 + 0.5;
-                adjustment = ( mid - index - 1 ) * $('#testVal').val() ;
+                adjustment = ( mid - index - 1 ) * 22 ;
             }else if($chart.data("viewMode") == 2){
-                adjustment = parseInt($('#testVal').val()) ;
+                adjustment = 22 ;
             }
             return adjustment + xVal;
         }
