@@ -3732,6 +3732,8 @@ $.extend(true, lv, {
                         align = "center";
                         var test = axis.p2c(tick.v);
                         var mid = axis.ticks.length / 2 + 0.5;
+                        console.log("CHART VIEW: " + $chart.data("viewMode"))
+                        console.log("CHART VIEW is month: " + $chart.data("viewMode") == this.VIEW_MODE.MONTH)
                         var adjustment = ( mid - i - 1 ) * $('#testVal').val() ;
                         pos.left = Math.round(plotOffset.left + test - axis.labelWidth/2 + adjustment);
                         if (axis.position == "bottom")
