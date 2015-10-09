@@ -3677,6 +3677,12 @@ $.extend(true, lv, {
                             y = Math.floor(y) + 0.5;
                     }
 
+                    if (axis.direction == "x"){
+                        var mid = axis.ticks.length / 2 + 0.5;
+                        var adjustment = ( mid - i - 1 ) * $('#testVal').val() ;
+                        x += adjustment;
+                    }
+
                     var testVar = {};
                     testVar.x = x;
                     testVar.y = y;
