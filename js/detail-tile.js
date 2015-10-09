@@ -3770,9 +3770,8 @@ $.extend(true, lv, {
             console.log("CHART VIEW: " + $chart.data("viewMode"));// 0: week, 1: month, 2: year
             var adjustment = 0;
             if($chart.data("viewMode") == 1){
-                var mid = axis.ticks.length / 2 + 0.5;
+                var mid = ticksCount / 2 + 0.5;
                 adjustment = ( mid - i - 1 ) * $('#testVal').val() ;
-
             }else if($chart.data("viewMode") == 2){
                 adjustment = 20 ;
             }
