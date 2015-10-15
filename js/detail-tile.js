@@ -5765,4 +5765,5 @@ $(window).resize(function(){
 
 $(document).ready(function () {
     loadFriends();
+    console.log('debug start here...');
 });
