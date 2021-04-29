@@ -1,0 +1,2089 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Customer Communications Management (CCM)",
+    "description": "The Centralized Communication Management (CCM) solution aims to eliminate the BDO’s departmental and digital siloes by providing a centralized middleware for outbound communications between BDO’s channel application and BDO’s Communication Gateways.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api01.apigateway.dev.bdo.com.ph/v1/ccm/",
+      "description": "One-way-tls in Dev Environment"
+    },
+    {
+      "url": "https://api02.apigateway.dev.bdo.com.ph/v1/ccm/",
+      "description": "Two-way-tls in Dev Environment"
+    },
+    {
+      "url": "https://api01.apigateway.uat.bdo.com.ph/v1/ccm/",
+      "description": "One-way-tls in UAT Environment"
+    },
+    {
+      "url": "https://api02.apigateway.uat.bdo.com.ph/v1/ccm/",
+      "description": "Two-way-tls in UAT Environment"
+    },
+    {
+      "url": "https://api02.apigateway.bdo.com.ph/v1/ccm/",
+      "description": "One-way-tls in Prod Environment"
+    },
+    {
+      "url": "https://api03.apigateway.bdo.com.ph/v1/ccm/",
+      "description": "Two-way-tls in Prod Environment"
+    }
+  ],
+  "tags": [
+    {
+      "name": "SMS",
+      "description": "Directly sends sms request to Infobip"
+    },
+    {
+      "name": "Email",
+      "description": "Directly sends email request to Infobip"
+    },
+    {
+      "name": "Omni",
+      "description": "Directly sends viber/whatsApp request to Infobip"
+    }
+  ],
+  "paths": {
+    "/sms": {
+      "post": {
+        "tags": [
+          "SMS"
+        ],
+        "summary": "Send a new message",
+        "operationId": "sendSMS",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MessageSMS"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:sms"
+            ]
+          }
+        ]
+      }
+    },
+    "/email": {
+      "post": {
+        "tags": [
+          "Email"
+        ],
+        "summary": "Send a new message",
+        "operationId": "sendEmail",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MessageEmail"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:email"
+            ]
+          }
+        ]
+      }
+    },
+    "/viber": {
+      "post": {
+        "tags": [
+          "Omni"
+        ],
+        "summary": "Send a new message",
+        "operationId": "sendViber",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MessageViber"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResultOmni"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:viber"
+            ]
+          }
+        ]
+      }
+    },
+    "/voice": {
+      "post": {
+        "tags": [
+          "Omni"
+        ],
+        "summary": "Send a new voice message",
+        "operationId": "sendVoiceMessage",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MessageVoice"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResultOmni"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:voide"
+            ]
+          }
+        ]
+      }
+    },
+    "/whatsApp": {
+      "post": {
+        "tags": [
+          "Omni"
+        ],
+        "summary": "Send a new message",
+        "operationId": "sendsWhatsApp",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/MessageWhatsApp"
+        },
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiResultOmni"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:whatsApp"
+            ]
+          }
+        ]
+      }
+    },
+    "/sms/{messageId}": {
+      "get": {
+        "tags": [
+          "SMS"
+        ],
+        "summary": "Find message log by ID",
+        "description": "Returns a single message",
+        "operationId": "getSMSLog",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "description": "ID of message to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageLogSMS"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Errpr",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:sms:log"
+            ]
+          }
+        ]
+      }
+    },
+    "/email/{messageId}": {
+      "get": {
+        "tags": [
+          "Email"
+        ],
+        "summary": "Find message log by ID",
+        "description": "Returns a single message",
+        "operationId": "geteMailLog",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "description": "ID of message to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageLogs"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:email:log"
+            ]
+          }
+        ]
+      }
+    },
+    "/viber/{messageId}": {
+      "get": {
+        "tags": [
+          "Omni"
+        ],
+        "summary": "Find message log by ID",
+        "description": "Returns a single message",
+        "operationId": "getViberLog",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "description": "ID of message to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageLogs"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:viber:log"
+            ]
+          }
+        ]
+      }
+    },
+    "/whatsApp/{messageId}": {
+      "get": {
+        "tags": [
+          "Omni"
+        ],
+        "summary": "Find message log by ID",
+        "description": "Returns a single message",
+        "operationId": "getWhatsAppLog",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "description": "ID of message to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageLogs"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:whatsApp:log"
+            ]
+          }
+        ]
+      }
+    },
+    "/voice/{messageId}": {
+      "get": {
+        "tags": [
+          "Omni"
+        ],
+        "summary": "Find message log by ID",
+        "description": "Returns a single message",
+        "operationId": "getVoiceMessageLog",
+        "parameters": [
+          {
+            "name": "messageId",
+            "in": "path",
+            "description": "ID of message to return",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageLogs"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/400FaultResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/401FaultResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/404FaultResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/429FaultResponse"
+                }
+              }
+            }
+          },
+          "5XX": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/5XXFaultResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "messagemgt_auth": [
+              "urn:bdo:ccm:voice:log"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MessageSMS": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "description": "The ID that uniquely identifies the customer."
+          },
+          "costCenter": {
+            "type": "string",
+            "example": "2640"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Priority <br> `1` - Financial Transactions and Profile Update <br> `2` - Non-financial transactions <br> `3` - Broadcast Messages"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Represents a sender ID which can be alphanumeric or numeric. Alphanumeric sender ID length should be between 3 and 11 characters (Example:`CompanyName`). Numeric sender ID length should be between 3 and 14 characters."
+          },
+          "messages": {
+            "type": "array",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string"
+                },
+                "destinations": {
+                  "type": "array",
+                  "maxItems": 1,
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "to": {
+                        "type": "string",
+                        "description": "Message destination address. Addresses must be in international format."
+                      },
+                      "messageId": {
+                        "type": "string",
+                        "description": "The ID that uniquely identifies the message sent."
+                      }
+                    },
+                    "maxItems": 1,
+                    "required": [
+                      "to",
+                      "messageId"
+                    ]
+                  }
+                },
+                "template": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Message Template ID"
+                    },
+                    "parameters": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "key": {
+                            "type": "string",
+                            "description": "Parameter Key"
+                          },
+                          "value": {
+                            "type": "string",
+                            "description": "Parameter Value"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Message that will be sent."
+                },
+                "sendAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "description": "Date and time when the message is to be sent.  Format:`yyyy-MM-dd'T'HH:mm:ss.SSSZ`"
+                },
+                "validityPeriod": {
+                  "type": "integer",
+                  "format": "int64",
+                  "description": "The message validity period in `minutes`. When the period expires, it will not be allowed for the message to be sent."
+                }
+              },
+              "maxItems": 1,
+              "required": [
+                "from",
+                "destinations"
+              ]
+            }
+          }
+        },
+        "required": [
+          "costCenter",
+          "priority",
+          "originId",
+          "messages"
+        ]
+      },
+      "MessageEmail": {
+        "required": [
+          "costCenter",
+          "priority",
+          "originId",
+          "to",
+          "from",
+          "subject",
+          "messageId"
+        ],
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "description": "The ID that uniquely identifies the customer."
+          },
+          "costCenter": {
+            "type": "string",
+            "example": "2640"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Priority <br> `1` - Financial Transactions and Profile Update <br> `2` - Non-financial transactions <br> `3` - Broadcast Messages"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Represents a sender ID which can be alphanumeric or numeric. Alphanumeric sender ID length should be between 3 and 11 characters (Example:`CompanyName`). Numeric sender ID length should be between 3 and 14 characters."
+          },
+          "from": {
+            "type": "string",
+            "description": "Email address with optional sender name"
+          },
+          "to": {
+            "type": "string",
+            "description": "Email address of the recipient"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Message subject"
+          },
+          "text": {
+            "type": "string",
+            "description": "Body of message"
+          },
+          "messageId": {
+            "type": "string",
+            "description": "The ID that uniquely identifies the message sent for a recipient."
+          },
+          "attachment": {
+            "type": "string",
+            "format": "binary",
+            "description": "File attachment"
+          },
+          "html": {
+            "type": "string",
+            "description": "HTML body of the message. If html and text fields are present, text field will be ignored and html will be delivered as message body"
+          },
+          "replyto": {
+            "type": "string",
+            "description": "Email address to which recipients of the email can reply"
+          },
+          "template": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Template ID"
+              },
+              "parameters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "description": "Parameter Key"
+                    },
+                    "value": {
+                      "type": "string",
+                      "description": "Parameter Value"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "MessageViber": {
+        "required": [
+          "costCenter",
+          "priority",
+          "originId",
+          "scenarioKey",
+          "viber",
+          "destinations"
+        ],
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "description": "The ID that uniquely identifies the customer."
+          },
+          "costCenter": {
+            "type": "string",
+            "example": "2640"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Priority <br> `1` - Financial Transactions and Profile Update <br> `2` - Non-financial transactions <br> `3` - Broadcast Messages"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Represents a sender ID which can be alphanumeric or numeric. Alphanumeric sender ID length should be between 3 and 11 characters (Example:`CompanyName`). Numeric sender ID length should be between 3 and 14 characters."
+          },
+          "scenarioKey": {
+            "type": "string",
+            "description": "Scenario key that uniquely identifies the scenario which will be used when sending message. If this field is not set, the default scenario will be used."
+          },
+          "sendAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the message is to be sent.  Format:`yyyy-MM-dd'T'HH:mm:ss.SSSZ`"
+          },
+          "destinations": {
+            "type": "array",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "to": {
+                  "type": "object",
+                  "properties": {
+                    "phoneNumber": {
+                      "type": "string",
+                      "description": "Destination phone number. Phone numbers must be in international format."
+                    }
+                  },
+                  "required": [
+                    "phoneNumber"
+                  ]
+                },
+                "messageId": {
+                  "type": "string",
+                  "description": "The ID that uniquely identifies the message sent."
+                }
+              },
+              "required": [
+                "messageId"
+              ]
+            }
+          },
+          "viber": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "Text of the message that will be sent."
+              },
+              "validityPeriod": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The message validity period. Unless specified differently in validityPeriodTimeUnit, it is expressed in minutes. When the period expires, the message will be automatically sent using the next OMNI step. Validity period longer than 48h is not supported (in this case, it will be automatically set to 48h). Additionally, period should be longer than 30 seconds."
+              },
+              "imageURL": {
+                "type": "string",
+                "description": "URL of the image sent in the Viber message"
+              },
+              "fileName": {
+                "type": "string",
+                "description": "File name of the file sent in the Viber message."
+              },
+              "fileType": {
+                "type": "string",
+                "description": "File type (extension) of the file sent in the Viber message. Has to be one of:doc, docx, rtf, dot, dotx, odt ,odf, fodt, txt, info, pdf, xps, pdax, eps, xls, xlsx, ods, fods, csv, xlsm, xltx"
+              },
+              "fileUrl": {
+                "type": "string",
+                "description": "URL of the file sent in the Viber message. (Regex:`^(https?)://.*$`)"
+              },
+              "buttonText": {
+                "type": "string",
+                "description": "Viber button label. Max 20 characters."
+              },
+              "buttonURL": {
+                "type": "string",
+                "description": "Viber Button Call To Action. Should contain URL or telephone number to call."
+              },
+              "isPromotional": {
+                "type": "boolean",
+                "description": "Indicates if content is of promotional character."
+              },
+              "template": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Template ID"
+                  },
+                  "parameters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "Parameter Key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "Parameter Value"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "MessageVoice": {
+        "required": [
+          "costCenter",
+          "priority",
+          "originId",
+          "scenarioKey",
+          "voice",
+          "destinations"
+        ],
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "description": "The ID that uniquely identifies the customer."
+          },
+          "costCenter": {
+            "type": "string",
+            "example": "2640"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Priority <br> `1` - Financial Transactions and Profile Update <br> `2` - Non-financial transactions <br> `3` - Broadcast Messages"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Represents a sender ID which can be alphanumeric or numeric. Alphanumeric sender ID length should be between 3 and 11 characters (Example:`CompanyName`). Numeric sender ID length should be between 3 and 14 characters."
+          },
+          "scenarioKey": {
+            "type": "string",
+            "description": "Scenario key that uniquely identifies the scenario which will be used when sending message. If this field is not set, the default scenario will be used."
+          },
+          "sendAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the message is to be sent.  Format:`yyyy-MM-dd'T'HH:mm:ss.SSSZ`"
+          },
+          "destinations": {
+            "type": "array",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "to": {
+                  "type": "object",
+                  "properties": {
+                    "phoneNumber": {
+                      "type": "string",
+                      "description": "Destination phone number. Phone numbers must be in international format."
+                    }
+                  },
+                  "required": [
+                    "phoneNumber"
+                  ]
+                },
+                "messageId": {
+                  "type": "string",
+                  "description": "The ID that uniquely identifies the message sent."
+                }
+              },
+              "required": [
+                "messageId"
+              ]
+            }
+          },
+          "voice": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "Text of the message that will be sent."
+              },
+              "validityPeriod": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The message validity period. Unless specified differently in validityPeriodTimeUnit, it is expressed in minutes. When the period expires, the message will be automatically sent using the next OMNI step. Validity period longer than 48h is not supported (in this case, it will be automatically set to 48h). Additionally, period should be longer than 30 seconds."
+              },
+              "template": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Template ID"
+                  },
+                  "parameters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "Parameter Key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "Parameter Value"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "MessageWhatsApp": {
+        "required": [
+          "costCenter",
+          "priority",
+          "originId",
+          "scenarioKey",
+          "whatsApp",
+          "destinations"
+        ],
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "description": "The ID that uniquely identifies the customer."
+          },
+          "costCenter": {
+            "type": "string",
+            "example": "2640"
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 3,
+            "description": "Priority <br> `1` - Financial Transactions and Profile Update <br> `2` - Non-financial transactions <br> `3` - Broadcast Messages"
+          },
+          "originId": {
+            "type": "string",
+            "description": "Represents a sender ID which can be alphanumeric or numeric. Alphanumeric sender ID length should be between 3 and 11 characters (Example:`CompanyName`). Numeric sender ID length should be between 3 and 14 characters."
+          },
+          "scenarioKey": {
+            "type": "string",
+            "description": "Scenario key that uniquely identifies the scenario which will be used when sending message. If this field is not set, the default scenario will be used."
+          },
+          "sendAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date and time when the message is to be sent.  Format:`yyyy-MM-dd'T'HH:mm:ss.SSSZ`"
+          },
+          "destinations": {
+            "type": "array",
+            "maxItems": 1,
+            "items": {
+              "type": "object",
+              "properties": {
+                "to": {
+                  "type": "object",
+                  "properties": {
+                    "phoneNumber": {
+                      "type": "string",
+                      "description": "Destination phone number. Phone numbers must be in international format."
+                    }
+                  },
+                  "required": [
+                    "phoneNumber"
+                  ]
+                },
+                "messageId": {
+                  "type": "string",
+                  "description": "The ID that uniquely identifies the message sent."
+                }
+              },
+              "required": [
+                "messageId"
+              ]
+            }
+          },
+          "whatsApp": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "type": "string",
+                "description": "Text of the message that will be sent."
+              },
+              "templateName": {
+                "type": "string",
+                "description": "WhatsApp template name"
+              },
+              "templateData": {
+                "type": "array",
+                "items": {
+                  "description": "Template parameters values ordered as registered in WhatsApp template",
+                  "type": "string"
+                }
+              },
+              "language": {
+                "type": "string"
+              },
+              "mediaTemplateData": {
+                "type": "object",
+                "description": "Media template definitions",
+                "properties": {
+                  "header": {
+                    "type": "object",
+                    "description": "Media template header. Required for media templates which contain headers",
+                    "properties": {
+                      "textPlaceholder": {
+                        "type": "string",
+                        "description": "Text placeholder. Required for templates that contain a text header."
+                      },
+                      "documentUrl": {
+                        "type": "string",
+                        "description": "Document URL. Required for templates that contain a document header.Supported document types are PDF, DOC(X), PPT(X), XLS(X). Maximum document size is 100MB."
+                      },
+                      "documentFilename": {
+                        "type": "string",
+                        "description": "Document name. Required for templates that contain a document header."
+                      },
+                      "imageUrl": {
+                        "type": "string",
+                        "description": "Image URL. Required for templates that contain an image header. Supported image types:`JPG, JPEG, PNG. Maximum image size is 5MB`."
+                      },
+                      "videoUrl": {
+                        "type": "string",
+                        "description": "Document URL. Required for templates that contain a document header.Supported document types are PDF, DOC(X), PPT(X), XLS(X). Maximum document size is 100MB."
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "Location latitude. The value must be between -90 and 90. Required for templates that contain a location header."
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "format": "double",
+                        "description": "Location longitude. The value must be between -180 and 180. Required for templates that contain a location header."
+                      }
+                    }
+                  },
+                  "body": {
+                    "type": "object",
+                    "properties": {
+                      "placeholders": {
+                        "type": "string",
+                        "description": "Media template body placeholders. The value must not be null, but can be an empty array. Values within the array must not be null or empty."
+                      }
+                    }
+                  }
+                }
+              },
+              "validityPeriod": {
+                "type": "integer",
+                "format": "int32",
+                "description": "The message validity period. Unless specified differently in validityPeriodTimeUnit, it is expressed in minutes. When the period expires, the message will be automatically sent using the next OMNI step. Validity period longer than 48h is not supported (in this case, it will be automatically set to 48h). Additionally, period should be longer than 30 seconds."
+              },
+              "imageUrl": {
+                "type": "string",
+                "description": "URL of the image sent in the WhatsApp message. Max 2048 characters. Supported image types:`JPG, JPEG, PNG. Maximum image size is 5MB`."
+              },
+              "fileUrl": {
+                "type": "string",
+                "description": "URL of the file sent in the WhatsApp message. Max 2048 characters. Supported file types are PDF, DOC(X), PPT(X), XLS(X). Maximum file size is 100MB."
+              },
+              "audioUrl": {
+                "type": "string",
+                "description": "URL of the audio file sent in the WhatsApp message. Max 2048 characters. Supported audio types are AAC, AMR, MP3, OPUS. Maximum audio size is 16MB.Viber button label. Max 20 characters."
+              },
+              "videoUrl": {
+                "type": "string",
+                "description": "URL of the video sent in the WhatsApp message. Max 2048 characters. Supported video types are MP4, 3GPP. Maximum video size is 16MB."
+              },
+              "template": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Template ID"
+                  },
+                  "parameters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "type": "string",
+                          "description": "Parameter Key"
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "Parameter Value"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "MessageLogSMS": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mccMnc": {
+                  "type": "string",
+                  "description": "Mobile country and network codes."
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Text of the message that was sent."
+                },
+                "channel": {
+                  "type": "string",
+                  "description": "Channel that was used for message delivering."
+                },
+                "to": {
+                  "type": "string",
+                  "description": "The message destination address."
+                },
+                "sentAt": {
+                  "type": "string",
+                  "description": "Tells when the message was sent. It has the following format:`yyyy-MM-dd'T'HH:mm:ss.SSSZ`."
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "groupName": {
+                      "type": "string",
+                      "description": "Status group name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Human-readable description of the status."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Status name."
+                    },
+                    "action": {
+                      "type": "string",
+                      "description": "Action that should be taken to eliminate the error."
+                    },
+                    "groupId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status group ID."
+                    }
+                  }
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "groupName": {
+                      "type": "string",
+                      "description": "Error group name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Human-readable description of the error."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Error ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Error name."
+                    },
+                    "permanent": {
+                      "type": "boolean",
+                      "description": "Tells if the error is permanent."
+                    },
+                    "groupId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status group ID."
+                    }
+                  }
+                },
+                "doneAt": {
+                  "type": "string",
+                  "description": "Tells when the message was finished processing by Infobip (ie. delivered to destination, delivered to destination network, etc.)"
+                },
+                "messageId": {
+                  "type": "string",
+                  "description": "The ID that uniquely identifies the message sent."
+                },
+                "from": {
+                  "type": "string",
+                  "description": "Sender ID that can be alphanumeric or numeric."
+                },
+                "smsCount": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "The number of sent message segments."
+                }
+              }
+            }
+          }
+        }
+      },
+      "ApiResult": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "to": {
+                  "type": "string",
+                  "description": "The message destination address."
+                },
+                "messageId": {
+                  "type": "string",
+                  "description": "The ID that uniquely identifies the message sent."
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "groupName": {
+                      "type": "string",
+                      "description": "Status group name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Human-readable description of the status."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Status name."
+                    },
+                    "action": {
+                      "type": "string",
+                      "description": "Action that should be taken to eliminate the error."
+                    },
+                    "groupId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status group ID."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ScenarioRequestParameters": {
+        "required": [
+          "name",
+          "flow"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "OMNI scenario name."
+          },
+          "default": {
+            "type": "boolean",
+            "description": "Indicates if created scenario should be set as a default."
+          },
+          "flow": {
+            "required": [
+              "from",
+              "channel"
+            ],
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "from": {
+                  "type": "string",
+                  "description": "Sender used in OMNI scenario’s step for sending message."
+                },
+                "channel": {
+                  "type": "string",
+                  "description": "Channel used in scenario’s step for delivering message.",
+                  "enum": [
+                    "VIBER",
+                    "WHATSAPP",
+                    "VOICE"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "ApiResultOmni": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "to": {
+                  "type": "object",
+                  "properties": {
+                    "phoneNumber": {
+                      "type": "string",
+                      "description": "Destination phone number. Phone numbers must be in international format"
+                    }
+                  }
+                },
+                "messageId": {
+                  "type": "string",
+                  "description": "The ID that uniquely identifies the message sent."
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "groupName": {
+                      "type": "string",
+                      "description": "Status group name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Human-readable description of the status."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Status name."
+                    },
+                    "action": {
+                      "type": "string",
+                      "description": "Action that should be taken to eliminate the error."
+                    },
+                    "groupId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status group ID."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "MessageLogs": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "mccMnc": {
+                  "type": "string",
+                  "description": "Mobile country and network codes."
+                },
+                "text": {
+                  "type": "string",
+                  "description": "Text of the message that was sent."
+                },
+                "channel": {
+                  "type": "string",
+                  "description": "Channel that was used for message delivering."
+                },
+                "to": {
+                  "type": "string",
+                  "description": "The message destination address."
+                },
+                "sentAt": {
+                  "type": "string",
+                  "description": "Tells when the message was sent. It has the following format:`yyyy-MM-dd'T'HH:mm:ss.SSSZ`."
+                },
+                "status": {
+                  "type": "object",
+                  "properties": {
+                    "groupName": {
+                      "type": "string",
+                      "description": "Status group name."
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Human-readable description of the status."
+                    },
+                    "id": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Status name."
+                    },
+                    "action": {
+                      "type": "string",
+                      "description": "Action that should be taken to eliminate the error."
+                    },
+                    "groupId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "Status group ID."
+                    }
+                  }
+                },
+                "doneAt": {
+                  "type": "string",
+                  "description": "Tells when the message was finished processing by Infobip (ie. delivered to destination, delivered to destination network, etc.)"
+                },
+                "messageId": {
+                  "type": "string",
+                  "description": "The ID that uniquely identifies the message sent."
+                },
+                "from": {
+                  "type": "string",
+                  "description": "Sender ID that can be alphanumeric or numeric."
+                },
+                "messageCount": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "The number of sent message segments."
+                }
+              }
+            }
+          }
+        }
+      },
+      "401FaultResponse": {
+        "type": "object",
+        "properties": {
+          "Fault": {
+            "type": "object",
+            "properties": {
+              "Code": {
+                "type": "string",
+                "description": "Error Code",
+                "example": 401
+              },
+              "Message": {
+                "type": "string",
+                "description": "Error message.",
+                "example": "Not Found"
+              },
+              "Description": {
+                "type": "string",
+                "description": "Error description.",
+                "example": "Invalid Access Token"
+              }
+            }
+          }
+        }
+      },
+      "404FaultResponse": {
+        "type": "object",
+        "properties": {
+          "Fault": {
+            "type": "object",
+            "properties": {
+              "Code": {
+                "type": "string",
+                "description": "Error Code",
+                "example": "404"
+              },
+              "Message": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Not Found"
+              },
+              "Description": {
+                "type": "string",
+                "description": "Error description.",
+                "example": "Resource Not Found"
+              }
+            }
+          }
+        }
+      },
+      "429FaultResponse": {
+        "type": "object",
+        "properties": {
+          "Fault": {
+            "type": "object",
+            "properties": {
+              "Code": {
+                "type": "string",
+                "description": "Error Code",
+                "example": "429"
+              },
+              "Message": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Too Many Requests"
+              },
+              "Description": {
+                "type": "string",
+                "description": "Error description.",
+                "example": "Too many requests has been received."
+              }
+            }
+          }
+        }
+      },
+      "400FaultResponse": {
+        "type": "object",
+        "properties": {
+          "Fault": {
+            "type": "object",
+            "properties": {
+              "Code": {
+                "type": "string",
+                "description": "Error Code",
+                "example": "400"
+              },
+              "Message": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Bad Request"
+              },
+              "Description": {
+                "type": "string",
+                "description": "Error description.",
+                "example": "Invalid Message ID"
+              }
+            }
+          }
+        }
+      },
+      "5XXFaultResponse": {
+        "type": "object",
+        "properties": {
+          "Fault": {
+            "type": "object",
+            "properties": {
+              "Code": {
+                "type": "string",
+                "description": "Error Code",
+                "example": "500"
+              },
+              "Message": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Internal Server Error"
+              },
+              "Description": {
+                "type": "string",
+                "description": "Error description.",
+                "example": "Unable to process the request at the moment. Please try again later."
+              }
+            }
+          }
+        }
+      }
+    },
+    "requestBodies": {
+      "MessageSMS": {
+        "description": "Message object that needs to be added",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MessageSMS"
+            }
+          }
+        },
+        "required": true
+      },
+      "MessageEmail": {
+        "description": "Message object that needs to be added",
+        "content": {
+          "multipart/form-data": {
+            "schema": {
+              "$ref": "#/components/schemas/MessageEmail"
+            }
+          }
+        },
+        "required": true
+      },
+      "MessageViber": {
+        "description": "Message object that needs to be added",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MessageViber"
+            }
+          }
+        },
+        "required": true
+      },
+      "MessageWhatsApp": {
+        "description": "Message object that needs to be added",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MessageWhatsApp"
+            }
+          }
+        },
+        "required": true
+      },
+      "MessageVoice": {
+        "description": "Message object that needs to be added",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/MessageVoice"
+            }
+          }
+        },
+        "required": true
+      }
+    },
+    "securitySchemes": {
+      "messagemgt_auth": {
+        "type": "oauth2",
+        "flows": {
+          "clientCredentials": {
+            "tokenUrl": "http://api01.apigateway.dev.bdo.com.ph/v2/oauth2/token",
+            "scopes": {
+              "urn:bdo:ccm:sms": "Send SMS Message",
+              "urn:bdo:ccm:sms:log": "Get SMS Message Log",
+              "urn:bdo:ccm:email": "Send Email Message",
+              "urn:bdo:ccm:email:log": "Get Email Message Log",
+              "urn:bdo:ccm:viber": "Send Viber Message",
+              "urn:bdo:ccm:viber:log": "Get Viber Message Log",
+              "urn:bdo:ccm:whatsApp": "Send WhatsApp Message",
+              "urn:bdo:ccm:whatsApp:log": "Get WhatsApp Message Log",
+              "urn:bdo:ccm:voice": "Send Voice Message",
+              "urn:bdo:ccm:voice:log": "Get Voice Message Log"
+            }
+          }
+        }
+      }
+    }
+  }
+}
